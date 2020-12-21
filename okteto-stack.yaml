@@ -1,0 +1,12 @@
+name: fastapi-okteto
+service:
+  fastapi:
+    public: true
+    image: fastapi-okteto:latest
+    build: .
+    replicas: 1
+    ports:
+      - 8080
+    resources:
+      cpu: 100m
+      memory: 128Mi
