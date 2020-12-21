@@ -1,0 +1,16 @@
+from pydantic import BaseModel, Field
+from typing import Optional, List
+
+
+class RecipeSchema(BaseModel):
+    id: Optional[int]
+    name: str = Field(...)
+    ingredients: List[str] = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "Donuts",
+                "ingredients": ["Flour", "Milk", "Sugar", "Vegetable Oil"]
+            }
+        }
