@@ -1,0 +1,4 @@
+deploy:
+  - okteto stack deploy --build
+dev:
+  - okteto.yml
