@@ -3,9 +3,7 @@ service:
   fastapi:
     public: true
     image: fastapi-okteto:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     replicas: 1
     ports:
       - 8080
