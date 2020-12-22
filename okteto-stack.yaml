@@ -1,9 +1,11 @@
-name: fastapi-okteto
+name: fastapi-crud
 service:
   fastapi:
     public: true
     image: fastapi-okteto:latest
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     replicas: 1
     ports:
       - 8080
