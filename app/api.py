@@ -51,8 +51,7 @@ def add_recipe(recipe: RecipeSchema = Body(...)) -> dict:
     return {
         "message": "Recipe added successfully."
     }
-
-@app.put("/recipe", tags=["Recipe"])
+  
 def update_recipe(id: int, recipe_data: UpdateRecipeSchema)  -> dict:
     stored_recipe = {}
     for recipe in recipes:
