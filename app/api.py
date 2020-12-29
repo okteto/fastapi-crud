@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Body
 from fastapi.encoders import jsonable_encoder
 
-from app.model import RecipeSchema
+from app.model import RecipeSchema, UpdateRecipeSchema
 
 app = FastAPI()
 
@@ -51,9 +51,8 @@ def add_recipe(recipe: RecipeSchema = Body(...)) -> dict:
     return {
         "message": "Recipe added successfully."
     }
-
-@app.put("/recipe", tags=["Recipe"])
-def update_recipe(id: int, recipe_data: RecipeSchema) -> dict:
+  
+def update_recipe(id: int, recipe_data: UpdateRecipeSchema)  -> dict:
     stored_recipe = {}
     for recipe in recipes:
         if recipe["id"] == id:
@@ -83,7 +82,7 @@ def delete_recipe(id: int) -> dict:
         if recipe['id'] == id:
             recipes.remove(recipe)
             return {
-                "data": "Recipe deleted successfully."
+                "message": "Recipe deleted successfully."
             }
 
     return {

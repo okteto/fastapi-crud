@@ -14,3 +14,15 @@ class RecipeSchema(BaseModel):
                 "ingredients": ["Flour", "Milk", "Sugar", "Vegetable Oil"]
             }
         }
+
+class UpdateRecipeSchema(BaseModel):
+    name: Optional[str]
+    ingredients: Optional[List[str]]
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "name": "Buns",
+                "ingredients": ["Flour", "Milk", "Sugar", "Vegetable Oil"]
+            }
+        }

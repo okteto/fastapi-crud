@@ -1,5 +1,5 @@
-name: fastapi-okteto
-service:
+name: fastapi-crud
+services:
   fastapi:
     public: true
     image: fastapi-okteto:latest
