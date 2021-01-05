@@ -26,4 +26,3 @@ class UpdateRecipeSchema(BaseModel):
                 "ingredients": ["Flour", "Milk", "Sugar", "Vegetable Oil"]
             }
         }
-
