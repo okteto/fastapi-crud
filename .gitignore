@@ -3,3 +3,4 @@ venv
 __pycharm__
 .idea
 __pycache__
+blog.md
