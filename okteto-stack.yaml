@@ -2,7 +2,7 @@ name: fastapi-crud
 services:
   fastapi:
     public: true
-    image: youngestdev/fastapi-crud:latest
+    image: okteto.dev/fastapi-crud:latest
     build: .
     replicas: 1
     ports:
