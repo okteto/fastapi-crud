@@ -7,6 +7,29 @@ services:
     replicas: 1
     ports:
       - 8080
+    environment:
+      - MONGODB_DATABASE: ${DB_NAME}
+      - MONGODB_USERNAME: ${DB_USER}
+      - MONGODB_PASSWORD: ${DB_PASSWORD}
+      - MONGODB_HOSTNAME: mongodb
+
     resources:
       cpu: 100m
       memory: 128Mi
+    depends_on:
+      - mongodb
+    volumes:
+      - /data
+
+  mongodb:
+     image: bitnami/mongodb:latest
+     environment:
+       - MONGO_ROOT_USERNAME: ${MONGODB_USER}
+       - MONGO_ROOT_PASSWORD: ${MONDODB_PASSWORD}
+       - MONGO_DATABASE: ${DB_NAME}
+       - MONGO_DATA_DIR: /data/db
+      volumes:
+        - mongodbdata: /data/dbp
+
+       
+
