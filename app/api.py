@@ -16,7 +16,7 @@ recipes = [
 @app.get("/", tags=["Root"])
 def get_root() -> dict:
     return {
-        "message": "Welcome to the okteto's app."
+        "message": "Welcome to your Okteto app."
     }
 
 @app.get("/recipe", tags=["Recipe"])
@@ -59,7 +59,7 @@ def update_recipe(id: int, recipe_data: UpdateRecipeSchema)  -> dict:
             stored_recipe = recipe
         else:
             return {
-                "error": "No such recipe exist"
+                "error": "No such recipe exists."
             }
 
     stored_recipe_model = RecipeSchema(**stored_recipe)
