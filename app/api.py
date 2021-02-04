@@ -1,9 +1,14 @@
+from pymongo import MongoClient
+
 from fastapi import FastAPI, Body
 from fastapi.encoders import jsonable_encoder
 
 from app.model import RecipeSchema, UpdateRecipeSchema
 
 app = FastAPI()
+
+client = pymongo.MongoClient"localhost", 27017)
+db = client.test
 
 recipes = [
     {
@@ -16,7 +21,8 @@ recipes = [
 @app.get("/", tags=["Root"])
 def get_root() -> dict:
     return {
-        "message": "Welcome to the okteto's app."
+        "message": "Welcome to the okteto's app.",
+	"name": str(db.name)
     }
 
 @app.get("/recipe", tags=["Recipe"])
