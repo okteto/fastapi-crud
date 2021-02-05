@@ -69,8 +69,9 @@ def update_recipe(id: int, recipe_data: UpdateRecipeSchema)  -> dict:
     for recipe in recipes:
         if recipe["id"] == id:
             stored_recipe = recipe
-        else:
-            return {
+    
+    if not stored_recipe:
+        return {
                 "error": "No such recipe exists."
             }
 
