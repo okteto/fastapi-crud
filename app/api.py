@@ -1,96 +1,62 @@
-from pymongo import MongoClient
-
 from fastapi import FastAPI, Body
 from fastapi.encoders import jsonable_encoder
 
 from app.model import RecipeSchema, UpdateRecipeSchema
+from app.database import save_recipe, get_all_recipes, get_single_recipe, update_recipe_data, remove_recipe
 
 app = FastAPI()
-
-client = pymongo.MongoClient"localhost", 27017)
-db = client.test
-
-recipes = [
-    {
-        "id": 1,
-        "name": "Donuts",
-        "ingredients": ["Flour", "Milk", "Sugar", "Vegetable Oil"]
-    }
-]
 
 @app.get("/", tags=["Root"])
 def get_root() -> dict:
     return {
         "message": "Welcome to the okteto's app.",
-	"name": str(db.name)
     }
 
 @app.get("/recipe", tags=["Recipe"])
 def get_recipes() -> dict:
+    recipes = get_all_recipes()
     return {
         "data": recipes
     }
 
 @app.get("/recipe/{id}", tags=["Recipe"])
-def get_recipe(id: int) -> dict:
-    if id > len(recipes) or id < 1:
+def get_recipe(id: str) -> dict:
+    recipe = get_single_recipe(id)
+    if recipe:
         return {
-            "error": "Invalid ID passed."
+            "data": recipe
         }
-
-    for recipe in recipes:
-        if recipe['id'] == id:
-            return {
-                "data": [
-                    recipe
-                ]
-            }
-
     return {
         "error": "No such recipe with ID {} exist".format(id)
     }
 
 @app.post("/recipe", tags=["Recipe"])
 def add_recipe(recipe: RecipeSchema = Body(...)) -> dict:
-    recipe.id = len(recipes) + 1
-    recipes.append(recipe.dict())
-    return {
-        "message": "Recipe added successfully."
-    }
-  
-def update_recipe(id: int, recipe_data: UpdateRecipeSchema)  -> dict:
-    stored_recipe = {}
-    for recipe in recipes:
-        if recipe["id"] == id:
-            stored_recipe = recipe
-        else:
-            return {
-                "error": "No such recipe exist"
-            }
+    new_recipe = save_recipe(recipe.dict())
+    return new_recipe
 
-    stored_recipe_model = RecipeSchema(**stored_recipe)
-    update_recipe = recipe_data.dict(exclude_unset=True)
-    updated_recipe = stored_recipe_model.copy(update=update_recipe)
-    recipes[recipes.index(stored_recipe_model)] = jsonable_encoder(updated_recipe)
+@app.put("/recipe", tags=["Recipe"])
+def update_recipe(id: str, recipe_data: UpdateRecipeSchema)  -> dict:
+    if not get_single_recipe(id):
+        return {
+            "error": "No such recipe exist"
+        }
+
+    update_recipe_data(id, recipe_data.dict())
 
     return {
         "message": "Recipe updated successfully."
     }
 
 @app.delete("/recipe/{id}", tags=["Recipe"])
-def delete_recipe(id: int) -> dict:
-    if id > len(recipes) or id < 1:
+def delete_recipe(id: str) -> dict:
+    if not get_single_recipe(id):
         return {
             "error": "Invalid ID passed"
         }
 
-    for recipe in recipes:
-        if recipe['id'] == id:
-            recipes.remove(recipe)
-            return {
-                "message": "Recipe deleted successfully."
-            }
 
+    remove_recipe(id)
     return {
-        "error": "No such recipe with ID {} exist".format(id)
+        "message": "Recipe deleted successfully."
     }
