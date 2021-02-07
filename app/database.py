@@ -4,8 +4,6 @@ from decouple import config
 
 connection_details = config("DB_HOST")
 
-print("Config string: ", connection_details)
-
 client = MongoClient(connection_details)
 
 database = client.recipes
