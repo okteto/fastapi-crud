@@ -1,6 +1,5 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List
-import uuid
 
 class RecipeSchema(BaseModel):
     name: str = Field(...)
