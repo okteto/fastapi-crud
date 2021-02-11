@@ -2,11 +2,26 @@ name: fastapi-crud
 services:
   fastapi:
     public: true
-    image: DOCKERHUBUSERNAME/fastapi-crud:latest
+    image: okteto.dev/fastapi-crud:latest
     build: .
     replicas: 1
     ports:
       - 8080
+    environment:
+      - DB_HOST=mongodb://mongodb:27017
+      - secret=dev
     resources:
       cpu: 100m
       memory: 128Mi
+
+  mongodb:
+    image: bitnami/mongodb:latest
+    ports:
+      - 27017
+    resources:
+      cpu: 100m
+      memory: 128Mi
+      storage: 1Gi
+    volumes:
+      - /bitnami/mongodb
+
