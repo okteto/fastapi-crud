@@ -9,7 +9,7 @@ app = FastAPI()
 @app.get("/", tags=["Root"])
 def get_root() -> dict:
     return {
-        "message": "Welcome to the okteto's app.",
+        "message": "Welcome to your Okteto app."
     }
 
 @app.get("/recipe", tags=["Recipe"])
@@ -34,7 +34,10 @@ def get_recipe(id: str) -> dict:
 def add_recipe(recipe: RecipeSchema = Body(...)) -> dict:
     new_recipe = save_recipe(recipe.dict())
     return new_recipe
-
+    return {
+        "message": "Recipe added successfully."
+    }
+  
 @app.put("/recipe", tags=["Recipe"])
 def update_recipe(id: str, recipe_data: UpdateRecipeSchema)  -> dict:
     if not get_single_recipe(id):
