@@ -1,0 +1,36 @@
+name: CRUD App Preview Deployment
+
+on: 
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - name: Login
+      uses: okteto/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+
+    - name: Create namespace
+      uses: okteto/create-namespace@master
+      with:
+        namespace: pr-${{ github.event.number }}-crud
+   
+    - name: Deploy application
+      uses: okteto/deploy-stack@master
+      with:
+        build: "true"
+        namespace: pr-${{ github.event.number }}-crud
+
+    - name: add comment to PR
+      uses: unsplash/comment-on-pr@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        msg: "Preview environment available at https://fastapi-pr-${{ github.event.number }}-crud.cloud.okteto.net"
