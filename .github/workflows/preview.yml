@@ -20,17 +20,17 @@ jobs:
     - name: Create namespace
       uses: okteto/create-namespace@master
       with:
-        namespace: pr-${{ github.event.number }}-crud
+        namespace: pr-${{ github.event.number }}-youngestdev
    
     - name: Deploy application
       uses: okteto/deploy-stack@master
       with:
         build: "true"
-        namespace: pr-${{ github.event.number }}-crud
+        namespace: pr-${{ github.event.number }}-youngestdev
 
     - name: add comment to PR
       uses: unsplash/comment-on-pr@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        msg: "Preview environment available at https://fastapi-pr-${{ github.event.number }}-crud.cloud.okteto.net"
+        msg: "Preview environment available at https://fastapi-pr-${{ github.event.number }}-youngestdev.cloud.okteto.net" 
