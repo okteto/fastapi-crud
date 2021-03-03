@@ -3,7 +3,7 @@ name: CRUD App Preview Deployment
 on: 
   pull_request:
     branches:
-      - preview-environment
+      - main
 
 jobs:
   preview:
