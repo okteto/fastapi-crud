@@ -4,3 +4,4 @@ __pycharm__
 .idea
 __pycache__
 blog.md
+.env
