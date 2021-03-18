@@ -29,8 +29,8 @@ jobs:
         namespace: pr-${{ github.event.number }}-youngestdev
 
     - name: add comment to PR
-      uses: unsplash/comment-on-pr@master
+      uses: okteto/notify-pr@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        msg: "Preview environment available at https://fastapi-pr-${{ github.event.number }}-youngestdev.cloud.okteto.net" 
+        message: "Preview environment available at https://fastapi-pr-${{ github.event.number }}-youngestdev.cloud.okteto.net" 
