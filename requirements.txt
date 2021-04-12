@@ -1,4 +1,4 @@
-fastapi==0.62.0
-uvicorn==0.13.1
+fastapi
+uvicorn
 pymongo
 python-decouple
