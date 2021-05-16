@@ -1,4 +1,3 @@
-name: fastapi-crud
 services:
   fastapi:
     build: .
