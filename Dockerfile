@@ -1,11 +1,8 @@
 FROM python:3.8
 
-ADD requirements.txt /requirements.txt
+WORKDIR /app
 
-ADD main.py /main.py
-
-ADD okteto-stack.yaml /okteto-stack.yaml
-
+ADD . .
 RUN pip install -r requirements.txt
 
 EXPOSE 8080
