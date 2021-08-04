@@ -6,9 +6,16 @@ services:
     environment:
       - DB_HOST=mongodb://mongodb:27017
       - secret=dev
+    depends_on:
+      - mongodb
+
   mongodb:
     image: bitnami/mongodb:latest
     ports:
       - 27017
     volumes:
       - /bitnami/mongodb
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
